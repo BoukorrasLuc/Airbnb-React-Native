@@ -7,14 +7,33 @@ import {
   Image,
   FlatList,
   ActivityIndicator,
-  ImageBackground,
 } from "react-native";
 
 import axios from "axios";
+import { Entypo } from "@expo/vector-icons";
 
 export default function HomeScreen({ navigation }) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const stars = (ratingValue) => {
+    // Je vais chercher l'info sur ratingValue dans l'api.
+    const tab = [];
+    //je crée un tableau vide
+    for (let i = 1; i <= 5; i++) {
+      //Je crée une boucle
+      if (ratingValue >= i) {
+        tab.push(<Entypo name="star" size={24} color="#FFB100" key={i} />);
+        //Si ratingValue est supérieur ou égal à i, je push cette étoile.
+      } else {
+        tab.push(
+          <Entypo name="star-outlined" size={24} color="grey" key={i} />
+        );
+      }
+    }
+
+    return tab;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +51,7 @@ export default function HomeScreen({ navigation }) {
   }, []);
 
   return isLoading ? (
-    <ActivityIndicator size="large" color="#00ff00" />
+    <ActivityIndicator size="large" color="black" />
   ) : (
     <FlatList
       data={data}
@@ -62,8 +81,9 @@ export default function HomeScreen({ navigation }) {
                 <Text style={styles.title} numberOfLines={1}>
                   {item.title}
                 </Text>
-                <View>
-                  <Text>{item.reviews} reviews </Text>
+                <View style={styles.reviews}>
+                  {stars(item.ratingValue)}
+                  <Text style={styles.textReviews}>{item.reviews} reviews</Text>
                 </View>
               </View>
               <Image
@@ -82,9 +102,8 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomColor: "grey",
+    borderBottomColor: "#CFCFCF",
     borderBottomWidth: 3,
-
     marginHorizontal: 20,
     marginBottom: 20,
     paddingBottom: 10,
@@ -92,6 +111,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 200,
+    position: "relative",
   },
   price: {
     height: 50,
@@ -99,6 +119,8 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
+    position: "absolute",
+    marginTop: 140,
   },
   priceText: {
     fontSize: 20,
@@ -111,6 +133,13 @@ const styles = StyleSheet.create({
   informations: {
     justifyContent: "center",
     flex: 1,
+  },
+  reviews: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  textReviews: {
+    color: "#CFCFCF",
   },
   title: {
     fontSize: 20,

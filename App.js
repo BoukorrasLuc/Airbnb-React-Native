@@ -15,6 +15,8 @@ import SignUpScreen from "./containers/SignUpScreen";
 import RoomScreen from "./containers/RoomScreen";
 import AroundMeScreen from "./containers/AroundMeScreen";
 
+import Logo from "./components/Logo";
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -85,7 +87,11 @@ export default function App() {
                   }}
                 >
                   {() => (
-                    <Stack.Navigator>
+                    <Stack.Navigator
+                      screenOptions={{
+                        headerTitle: () => <Logo />,
+                      }}
+                    >
                       {/* Stack.Navigator fournit un moyen pour votre application de faire la transition entre les écrans où chaque nouvel écran est placé au-dessus d'une pile. */}
                       <Stack.Screen
                         name="Home"
@@ -101,6 +107,7 @@ export default function App() {
                       <Stack.Screen
                         name="Room"
                         options={{
+                          headerLeft: null,
                           title: "Room",
                           headerStyle: { backgroundColor: "white" },
                           headerTitleStyle: { color: "white" },
@@ -121,7 +128,11 @@ export default function App() {
                   }}
                 >
                   {() => (
-                    <Stack.Navigator>
+                    <Stack.Navigator
+                      screenOptions={{
+                        headerTitle: () => <Logo />,
+                      }}
+                    >
                       <Stack.Screen
                         name="Around Me"
                         options={{
@@ -145,7 +156,11 @@ export default function App() {
                   }}
                 >
                   {() => (
-                    <Stack.Navigator>
+                    <Stack.Navigator
+                      screenOptions={{
+                        headerTitle: () => <Logo />,
+                      }}
+                    >
                       <Stack.Screen
                         name="Profile"
                         options={{

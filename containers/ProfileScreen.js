@@ -3,7 +3,6 @@ import React from "react";
 import { Text, View, Button } from "react-native";
 
 export default function ProfileScreen({ setToken }) {
-  // const { params } = useRoute();
   return (
     <View>
       {/* <Text>user id : {params.userId} </Text> */}
